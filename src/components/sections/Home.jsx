@@ -15,6 +15,7 @@ export const Home = () => {
                 className="pb-2 md:mask-b-from-30% md:mask-b-to-97%"
                 src={videoBG}
                 autoPlay
+                playsInline
                 loop
                 muted
               />
