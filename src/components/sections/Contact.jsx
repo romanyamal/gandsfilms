@@ -144,7 +144,6 @@ export const Contact = () => {
 
   const onSubmit = (data) => {
     console.log("Form submitted:", JSON.parse(JSON.stringify(data)));
-    setIsSubmitting(true);
     setShowModal(true);
     reset();
     setWeddingDate("");
