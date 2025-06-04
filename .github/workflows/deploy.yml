@@ -1,0 +1,70 @@
+name: Deploy React Vite app to Github Pages
+
+on: 
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
+      USERNAME: ${{ github.actor }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Dynamically modify vite.config.js for GitHub base path
+        run: |
+          PAGES_BASE_PATH="/${{ env.REPO_NAME }}/"
+          if grep -q "base" vite.config.js; then
+            sed -i "s|base: \`.*\`,|base: \`${PAGES_BASE_PATH}\`,|" vite.config.js
+            sed -i "s|base: \'.*\',|base: \`${PAGES_BASE_PATH}\`,|" vite.config.js
+            sed -i "s|base: \".*\",|base: \`${PAGES_BASE_PATH}\`,|" vite.config.js
+          else
+            sed -i "/defineConfig({/a \ \ base: \`${PAGES_BASE_PATH}\`," vite.config.js
+          fi
+          echo "--- Modified vite.config.js ---"
+          cat vite.config.js
+          echo "-------------------------------"
+        shell: bash
+
+      - name: Dynamically add homepage and deploy scripts to package.json
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+
+          HOMEPAGE_URL="https;//${{ env.USERNAME }}.github.io/${{ env.REPO_NAME }}/"
+          
+          jq \ 
+            --arg homepage "$HOMEPAGE_URL" \
+            '.homepage = $homepage | .scripts.predeploy = "npm run build" | .scripts.deploy = "gh-pages -d dist"' \
+            package.json > temp_package.json && mv temp_package.json package.json
+
+          echo '--- Modified package.json ---"
+          cat package.json
+          echo "-----------------------------"
+        shell: bash
+
+      - name: Build Vite app 
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '/.dist'
+
+      - name: Deploy Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
