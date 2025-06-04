@@ -26,19 +26,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Dynamically modify vite.config.js for GitHub base path
+      - name: Dynamically add homepage and deploy scripts to package.json
         run: |
-          PAGES_BASE_PATH="/${{ env.REPO_NAME }}/"
-          if grep -q "base" vite.config.js; then
-            sed -i "s|base: \`.*\`,|base: \`${PAGES_BASE_PATH}\`,|" vite.config.js
-            sed -i "s|base: \'.*\',|base: \`${PAGES_BASE_PATH}\`,|" vite.config.js
-            sed -i "s|base: \".*\",|base: \`${PAGES_BASE_PATH}\`,|" vite.config.js
-          else
-            sed -i "/defineConfig({/a \ \ base: \`${PAGES_BASE_PATH}\`," vite.config.js
-          fi
-          echo "--- Modified vite.config.js ---"
-          cat vite.config.js
-          echo "-------------------------------"
+          sudo apt-get update && sudo apt-get install -y jqAdd commentMore actions
+
+          HOMEPAGE_URL="https;//${{ env.USERNAME }}.github.io/${{ env.REPO_NAME }}/"
+          
+          jq \ 
+            --arg homepage "$HOMEPAGE_URL" \
+            '.homepage = $homepage | .scripts.predeploy = "npm run build" | .scripts.deploy = "gh-pages -d dist"' \
+            package.json > temp_package.json && mv temp_package.json package.json
+
+          echo "--- Modified package.json ---"
+          cat package.json
+          echo "-----------------------------"
         shell: bash
 
       - name: Dynamically add homepage and deploy scripts to package.json
