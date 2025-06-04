@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --font-logo: "Italianno", cursive;
+  --font-action: "Proxima Nova", sans-serif;
+  --font-body: "Proxima Nova", sans-serif;
+  --color-action: #ffc999;
+  --color-action-hvr: #f5ae6e;
+  --color-accent: #0e1721;
+  --color-wht: #f9f9f9;
+  --color-blk: #0a0a0a;
+  --color-primaryft: #0a0a0a;
+  --color-secondaryft: #363836;
+  --color-thirdft: #757876;
+  --color-contactform: #f3f4f6;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  font-family: "Proxima Nova", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  background: url("/src/assets/AdobeStock_106267755.jpeg");
+  color: #f3f4f6;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,9 @@
+name: g&sfilms
+services:
+  prod:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "80:80"
+    restart: unless-stopped
