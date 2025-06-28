@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { MobileMenu } from "./components/MobileMenu";
-import { Home } from "./components/sections/Home";
+import { Home as Hero } from "./components/sections/Home";
 import { About } from "./components/sections/About";
 import { Portfolio } from "./components/sections/Portfolio";
 import { Contact } from "./components/sections/Contact";
@@ -17,12 +17,14 @@ function App() {
     <>
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen}></Navbar>
       <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen}></MobileMenu>
-      <Home></Home>
-      <About></About>
-      <Portfolio></Portfolio>
-      {/* <Packages></Packages>
-      <Faq></Faq> */}
-      <Contact></Contact>
+
+      <Hero></Hero>
+
+      <main style={{ maxWidth: "1920px" }} className="mx-auto">
+        <About></About>
+        <Portfolio></Portfolio>
+        <Contact></Contact>
+      </main>
     </>
   );
 }
