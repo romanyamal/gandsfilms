@@ -6,7 +6,7 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
   }, [menuOpen]);
   return (
     <nav className="fixed top-0 w-full z-40 bg-accent mask-b-from-97% mask-b-to-100%">
-      <div className="mx-auto px-4 md:px-8 xl:px-32">
+      <div className="px-4">
         <div className="flex justify-center md:justify-between items-center  h-16 ">
           <a
             href="#home"

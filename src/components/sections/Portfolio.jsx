@@ -52,7 +52,7 @@ export const Portfolio = () => {
             <img src={img2} className="rounded object-cover" />
           </div>
         </div>
-        <div className="flex flex-col items-center pt-10 text-primaryft">
+        <div className="flex flex-col items-center text-center pt-10 text-primaryft">
           <h1 className="text-xl">For more content checkout our instagram!</h1>
           <a
             href="https://www.instagram.com/glimpseandsmilefilms/"
