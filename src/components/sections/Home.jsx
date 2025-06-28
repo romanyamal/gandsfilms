@@ -1,11 +1,23 @@
 import { RevealOnScroll } from "../RevealOnScroll";
 import videoBG from "../../assets/wedding-intro.mp4";
+import { useEffect, useState } from "react";
 
 export const Home = () => {
+  const [videoWidth, setVideoWidth] = useState(0);
+
+  useEffect(() => {
+    setVideoWidth(window.innerWidth);
+    const resize = () => setVideoWidth(window.innerWidth);
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("click", resize);
+    };
+  }, []);
+
   return (
     <section
       id="home"
-      className="flex items-center justify-center relative overflow-hidden"
+      className="flex relative items-center justify-center relative overflow-hidden"
     >
       <RevealOnScroll>
         <div>
@@ -14,6 +26,7 @@ export const Home = () => {
               <video
                 className="pb-2 md:mask-b-from-30% md:mask-b-to-97%"
                 src={videoBG}
+                style={{ width: videoWidth }}
                 autoPlay
                 playsInline
                 loop
