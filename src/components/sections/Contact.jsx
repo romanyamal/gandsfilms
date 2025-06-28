@@ -156,7 +156,7 @@ export const Contact = () => {
       className="min--h-2/3 flex items-center justify-center w-full py-20"
     >
       <RevealOnScroll>
-        <div className="grid grid-col-1 gap-16 md:grid-cols-2">
+        <div className="grid grid-col-1 gap-16 lg:grid-cols-2">
           <div className="flex flex-col p-8 space-y-8 justify-center text-primaryft text-center w-full max-w-lg">
             <h1 className="text-xl">Tell me your story!</h1>
             <p>
@@ -243,7 +243,7 @@ export const Contact = () => {
                         placeholder="mm/dd/yyyy"
                         value={weddingDate}
                         onFocus={() => setIsActive(true)}
-                        onBlur={(e) => {
+                        onBlur={(_) => {
                           handleInputBlur();
                           field.onBlur();
                         }}
@@ -259,36 +259,41 @@ export const Contact = () => {
                         }}
                         className="appearance-none cursor-text bg-transparent w-full text-thirdft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft"
                       />
-                      <button
-                        type="button"
-                        className="ml-2 px-3 py-1 cursor-pointer text-white rounded"
-                        onClick={() => {
-                          setIsActive(true);
-                          setShowDatePicker((prev) => !prev);
-                        }}
-                      >
-                        📅
-                      </button>
-                      {showDatePicker && (
-                        <div className="absolute z-10 ml-5 mt-10 ">
+                      <div className="relative">
+                        <button
+                          type="button"
+                          className="ml-2 px-3 py-1 cursor-pointer text-white rounded"
+                          onClick={() => {
+                            setIsActive(true);
+                            setShowDatePicker((prev) => !prev);
+                          }}
+                        >
+                          📅
+                        </button>
+                        {showDatePicker && (
                           <div
-                            className="shadow-md rounded-xl"
-                            ref={datePickerRef}
+                            style={{ width: 280 }}
+                            className="absolute z-10 ml-5 right-0 top-0 mt-10"
                           >
-                            <DatePicker
-                              onDateSelect={(date) => {
-                                const formatted =
-                                  dayjs(date).format("MM/DD/YYYY");
-                                setWeddingDate(formatted);
-                                field.onChange(formatted);
-                                setShowDatePicker(false);
-                                setIsActive(false);
-                                document.activeElement?.blur();
-                              }}
-                            />
+                            <div
+                              className="shadow-md rounded-xl"
+                              ref={datePickerRef}
+                            >
+                              <DatePicker
+                                onDateSelect={(date) => {
+                                  const formatted =
+                                    dayjs(date).format("MM/DD/YYYY");
+                                  setWeddingDate(formatted);
+                                  field.onChange(formatted);
+                                  setShowDatePicker(false);
+                                  setIsActive(false);
+                                  document.activeElement?.blur();
+                                }}
+                              />
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   )}
                 />
