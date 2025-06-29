@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import "yup-phone-lite";
@@ -11,6 +11,7 @@ import { RevealOnScroll } from "../RevealOnScroll";
 import { DatePicker } from "../DatePicker";
 import { Modal } from "../Modal";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { useClickOutside } from "../../utils/useClickOutside";
 dayjs.extend(customParseFormat);
 
 const schema = yup.object({
@@ -86,9 +87,11 @@ export const Contact = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [weddingDate, setWeddingDate] = useState("");
   const [showModal, setShowModal] = useState(false);
-
-  const containerRef = useRef(null);
   const datePickerRef = useRef(null);
+
+  useClickOutside(datePickerRef, () => {
+    setShowDatePicker(false);
+  });
 
   const {
     register,
@@ -114,25 +117,6 @@ export const Contact = () => {
       terms: false,
     },
   });
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      setTimeout(() => {
-        if (
-          containerRef.current &&
-          !containerRef.current.contains(document.activeElement) &&
-          (!datePickerRef.current ||
-            !datePickerRef.current.contains(event.target))
-        ) {
-          setIsActive(false);
-          setShowDatePicker(false);
-        }
-      }, 0);
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const handleInputBlur = () => {
     const date = dayjs(weddingDate, ["MMDDYYYY", "MM/DD/YYYY"], true);
@@ -232,7 +216,6 @@ export const Contact = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <div
-                      ref={containerRef}
                       className={`flex border-b transition-colors duration-300 ${
                         isActive ? "border-action" : "border-thirdft"
                       }`}
@@ -259,7 +242,7 @@ export const Contact = () => {
                         }}
                         className="appearance-none cursor-text bg-transparent w-full text-thirdft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft"
                       />
-                      <div className="relative">
+                      <div ref={datePickerRef} className="relative">
                         <button
                           type="button"
                           className="ml-2 px-3 py-1 cursor-pointer text-white rounded"
@@ -275,10 +258,7 @@ export const Contact = () => {
                             style={{ width: 280 }}
                             className="absolute z-10 ml-5 right-0 top-0 mt-10"
                           >
-                            <div
-                              className="shadow-md rounded-xl"
-                              ref={datePickerRef}
-                            >
+                            <div className="shadow-md rounded-xl">
                               <DatePicker
                                 onDateSelect={(date) => {
                                   const formatted =
