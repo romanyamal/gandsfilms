@@ -1,9 +1,11 @@
-import { RevealOnScroll } from "../RevealOnScroll";
-import videoBG from "../../assets/wedding-intro.mp4";
 import { useEffect, useState } from "react";
+import videoBG from "../../assets/wedding-intro.mp4";
+import videoplaceholder from "../../assets/BandS thumbnail.avif";
+import herotextimg from "../../assets/GS logo text.png";
 
 export const Home = () => {
   const [videoWidth, setVideoWidth] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     setVideoWidth(window.innerWidth);
@@ -14,38 +16,44 @@ export const Home = () => {
     };
   }, []);
 
+  const handleVideoLoad = () => {
+    setVideoLoaded(true);
+  };
+
   return (
     <section
       id="home"
-      className="flex relative items-center justify-center relative overflow-hidden"
+      className="flex relative items-center justify-center object-top overflow-hidden xl:h-screen"
     >
-      <RevealOnScroll>
-        <div>
-          <div className=" py-14 bg-cover bg-no-repeat bg-center">
-            <div>
-              <video
-                className="pb-2 md:mask-b-from-30% md:mask-b-to-97%"
-                src={videoBG}
-                style={{ width: videoWidth }}
-                autoPlay
-                playsInline
-                loop
-                muted
-              />
-            </div>
-            {/* overlay text on top of video*/}
-          </div>
-          <div className="w-full absolute flex flex-col items-center text-2xl xs:text-3xl sm:text-4xl md:text-primaryft md:text-5xl lg:text-6xl text-wht top-7/12 left-1/2 -translate-x-1/2 -translate-y-1/2 font-logo md:space-y-4">
-            <h1>Glimpse and Smile Films</h1>
-            <a
-              href="#contact"
-              className="inline-block rounded-sm font-action text-primaryft text-xs sm:text-sm md:text-md px-3 py-1 sm:py-2 md:px-4 lg:px-6  text-center bg-action hover:bg-action-hvr"
-            >
-              Book Now
-            </a>
-          </div>
+      {!videoLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+          <img
+            src={videoplaceholder}
+            alt="Placeholder"
+            className="w-full h-full object-cover opacity-70"
+          />
         </div>
-      </RevealOnScroll>
+      )}
+      <div>
+        <div className="bg-cover bg-no-repeat bg-center">
+          <video
+            className={`w-full h-auto ${videoLoaded ? "block" : "hidden"}`}
+            src={videoBG}
+            onLoadedData={handleVideoLoad}
+            preload="auto"
+            style={{ width: videoWidth }}
+            autoPlay
+            playsInline
+            loop
+            muted
+          />
+        </div>
+        <div className="absolute inset-0 bg-black opacity-35"></div>
+        <div className="w-full absolute flex flex-col items-center text-2xl xs:text-3xl sm:text-4xl md:text-primaryft md:text-5xl lg:text-6xl text-wht top-7/12 left-1/2 -translate-x-1/2 -translate-y-1/2 font-logo md:space-y-4">
+          <img className="max-w-7/13" src={herotextimg} alt="G and S Logo" />
+          <h1 className="font-action text-white">FILMS</h1>
+        </div>
+      </div>
     </section>
   );
 };

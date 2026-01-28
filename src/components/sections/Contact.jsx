@@ -4,7 +4,8 @@ import * as yup from "yup";
 import "yup-phone-lite";
 import { yupResolver } from "@hookform/resolvers/yup";
 import dayjs from "dayjs";
-import contactImg from "../../assets/DSC01260.jpg";
+// import contactImg from "../../assets/DSC01260.jpg";
+import reel from "../../assets/Contact_Reel.mp4";
 import isEmailValidator from "validator/lib/isEmail";
 
 import { RevealOnScroll } from "../RevealOnScroll";
@@ -25,7 +26,7 @@ const schema = yup.object({
       (value) =>
         value
           ? isEmailValidator(value)
-          : new yup.ValidationError("Invalid email format")
+          : new yup.ValidationError("Invalid email format"),
     ),
   name: yup.string().required("Name is required"),
   phoneNumber: yup
@@ -36,7 +37,7 @@ const schema = yup.object({
     .string()
     .required("Wedding date is required")
     .test("valid-date", "Invalid date format (use mm/dd/yyyy)", (value) =>
-      dayjs(value, ["MMDDYYYY", "MM/DD/YYYY"], true).isValid()
+      dayjs(value, ["MMDDYYYY", "MM/DD/YYYY"], true).isValid(),
     )
     .test("not-today", "Wedding date cannot be today", (value) => {
       const date = dayjs(value, ["MMDDYYYY", "MM/DD/YYYY"], true);
@@ -48,7 +49,7 @@ const schema = yup.object({
       (value) => {
         const date = dayjs(value, ["MMDDYYYY", "MM/DD/YYYY"], true);
         return date.isAfter(dayjs().add(6, "day"), "day");
-      }
+      },
     )
     .test(
       "max-3.5-years",
@@ -56,7 +57,7 @@ const schema = yup.object({
       (value) => {
         const date = dayjs(value, ["MMDDYYYY", "MM/DD/YYYY"], true);
         return date.isBefore(dayjs().add(3.5, "year"), "day");
-      }
+      },
     ),
   location: yup.string().required("Please enter venue location"),
   insta: yup
@@ -64,7 +65,7 @@ const schema = yup.object({
     .notRequired()
     .matches(
       /^@([A-Za-z0-9._]{1,30})$/,
-      "Invalid Instagram handle (e.g. @username)"
+      "Invalid Instagram handle (e.g. @username)",
     ),
   hearAbout: yup.array().min(1, "You must select at least one"),
   referral: yup.string(),
@@ -142,7 +143,7 @@ export const Contact = () => {
       <RevealOnScroll>
         <div className="grid grid-col-1 gap-16 lg:grid-cols-2">
           <div className="flex flex-col p-8 space-y-8 justify-center text-primaryft text-center w-full max-w-lg">
-            <h1 className="text-xl">Tell me your story!</h1>
+            {/* <h1 className="text-xl">Tell me your story!</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil cum
               velit temporibus provident quia. Expedita magni iusto, enim
@@ -155,10 +156,20 @@ export const Contact = () => {
               Adipisci tempore sint quae ad dolor. Molestias consectetur,
               placeat aperiam velit libero corporis provident.
             </p>
-            <h3>Preserve your moment to last a lifetime!</h3>
-            <div className="p-8 md:pl-10 flex items-center">
-              <img src={contactImg} className="rounded" />
+            <h3>Preserve your moment to last a lifetime!</h3> */}
+            {/* <div className="p-8 md:pl-10 flex items-center"> */}
+            {/* <img src={contactImg} className="rounded" /> */}
+            <div className=" p-8 md:pl-10 flex items-center">
+              <video
+                src={reel}
+                // style={{ width: videoWidth }}
+                autoPlay
+                playsInline
+                loop
+                muted
+              />
             </div>
+            {/* </div> */}
           </div>
 
           <div className="bg-contactform border rounded-lg border-transparent md:mr-8 text-primaryft">
