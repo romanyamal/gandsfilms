@@ -7,7 +7,7 @@ export const Portfolio = () => {
       id="mywork"
       className="relative items-center justify-center w-full min-h-2/3 py-15 px-50"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full text-primaryft text-center items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full text-blk text-center items-center">
         <div className="pr-10 py-2">
           <a
             href="https://vimeo.com/772666124"
@@ -32,7 +32,7 @@ export const Portfolio = () => {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full text-center  text-primaryft items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full text-center  text-blk items-center">
         <div className="order-2 md:order-1 ">
           <h2 className="font-accent px-8 py-2 text-md">ANDREI + ANGELINA</h2>
           <p className="px-4 text-sm">

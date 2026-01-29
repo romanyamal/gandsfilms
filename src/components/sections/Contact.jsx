@@ -1,14 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import "yup-phone-lite";
 import { yupResolver } from "@hookform/resolvers/yup";
 import dayjs from "dayjs";
-// import contactImg from "../../assets/DSC01260.jpg";
 import reel from "../../assets/Contact_Reel.mp4";
 import isEmailValidator from "validator/lib/isEmail";
 
-import { RevealOnScroll } from "../RevealOnScroll";
 import { DatePicker } from "../DatePicker";
 import { Modal } from "../Modal";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -92,6 +90,7 @@ export const Contact = () => {
 
   useClickOutside(datePickerRef, () => {
     setShowDatePicker(false);
+    setIsActive(false);
   });
 
   const {
@@ -124,6 +123,7 @@ export const Contact = () => {
     if (date.isValid()) {
       setWeddingDate(date.format("MM/DD/YYYY"));
       setValue("weddingDate", date.format("MM/DD/YYYY"));
+      setIsActive(false);
     }
   };
 
@@ -140,273 +140,254 @@ export const Contact = () => {
       id="contact"
       className="min--h-2/3 flex items-center justify-center w-full py-20"
     >
-      <RevealOnScroll>
-        <div className="grid grid-col-1 gap-16 lg:grid-cols-2">
-          <div className="flex flex-col p-8 space-y-8 justify-center text-primaryft text-center w-full max-w-lg">
-            {/* <h1 className="text-xl">Tell me your story!</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil cum
-              velit temporibus provident quia. Expedita magni iusto, enim
-              sapiente, adipisci soluta placeat delectus in praesentium repellat
-              quo doloribus tempora culpa.
-            </p>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Aspernatur, neque dolores magni molestiae animi error corporis.
-              Adipisci tempore sint quae ad dolor. Molestias consectetur,
-              placeat aperiam velit libero corporis provident.
-            </p>
-            <h3>Preserve your moment to last a lifetime!</h3> */}
-            {/* <div className="p-8 md:pl-10 flex items-center"> */}
-            {/* <img src={contactImg} className="rounded" /> */}
-            <div className=" p-8 md:pl-10 flex items-center">
-              <video
-                src={reel}
-                // style={{ width: videoWidth }}
-                autoPlay
-                playsInline
-                loop
-                muted
-              />
-            </div>
-            {/* </div> */}
-          </div>
-
-          <div className="bg-contactform border rounded-lg border-transparent md:mr-8 text-primaryft">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="w-full max-w-md space-y-4 m-auto md:pr-8"
-            >
-              <div className="pl-6 pr-6 pb-2 pt-6">
-                <span>Email address: *</span>
-                <input
-                  type="email"
-                  {...register("email")}
-                  placeholder="me@email.com"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>Full name: *</span>
-                <input
-                  type="text"
-                  {...register("name")}
-                  placeholder="John Doe"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.name.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>Phone number: *</span>
-                <input
-                  type="text"
-                  {...register("phoneNumber")}
-                  placeholder="(123) 456-7890"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-                {errors.phoneNumber && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.phoneNumber.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>Wedding Date: *</span>
-                <Controller
-                  name="weddingDate"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <div
-                      className={`flex border-b transition-colors duration-300 ${
-                        isActive ? "border-action" : "border-thirdft"
-                      }`}
-                    >
-                      <input
-                        {...field}
-                        type="text"
-                        placeholder="mm/dd/yyyy"
-                        value={weddingDate}
-                        onFocus={() => setIsActive(true)}
-                        onBlur={(_) => {
-                          handleInputBlur();
-                          field.onBlur();
-                        }}
-                        onChange={(e) => {
-                          setWeddingDate(e.target.value);
-                          field.onChange(e.target.value);
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault();
-                            e.target.blur();
-                          }
-                        }}
-                        className="appearance-none cursor-text bg-transparent w-full text-thirdft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft"
-                      />
-                      <div ref={datePickerRef} className="relative">
-                        <button
-                          type="button"
-                          className="ml-2 px-3 py-1 cursor-pointer text-white rounded"
-                          onClick={() => {
-                            setIsActive(true);
-                            setShowDatePicker((prev) => !prev);
-                          }}
-                        >
-                          📅
-                        </button>
-                        {showDatePicker && (
-                          <div
-                            style={{ width: 280 }}
-                            className="absolute z-10 ml-5 right-0 top-0 mt-10"
-                          >
-                            <div className="shadow-md rounded-xl">
-                              <DatePicker
-                                onDateSelect={(date) => {
-                                  const formatted =
-                                    dayjs(date).format("MM/DD/YYYY");
-                                  setWeddingDate(formatted);
-                                  field.onChange(formatted);
-                                  setShowDatePicker(false);
-                                  setIsActive(false);
-                                  document.activeElement?.blur();
-                                }}
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                />
-                {errors.weddingDate && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.weddingDate.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>Location: *</span>
-                <input
-                  type="text"
-                  {...register("location")}
-                  placeholder="City and Venue"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-                {errors.location && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.location.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>Instagram Handle:</span>
-                <input
-                  type="text"
-                  {...register("insta")}
-                  placeholder="@glimpseandsmilefilms"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-                {errors.insta && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.insta.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>How did you hear about me? *</span>
-                <div className="flex flex-col space-y-1">
-                  {hearAboutOptions.map(({ label, value }) => (
-                    <label key={value}>
-                      <input
-                        type="checkbox"
-                        value={value}
-                        {...register("hearAbout")}
-                        className="mr-2 accent-action"
-                      />
-                      {label}
-                    </label>
-                  ))}
-                  {errors.hearAbout && (
-                    <p className="text-red-500 text-sm pt-1">
-                      {errors.hearAbout.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>If a friend or Vendor, tell me who!</span>
-                <input
-                  type="text"
-                  {...register("referral")}
-                  placeholder="E.g. Montage Healdsburg"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <span>What about my work speaks to you the most? *</span>
-                <input
-                  type="text"
-                  {...register("values")}
-                  placeholder="Luxury, emotional storytelling"
-                  className="appearance-none cursor-text bg-transparent w-full border-b border-thirdft text-secondaryft mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-primaryft focus:border-action"
-                />
-              </div>
-              <div className="pl-6 pr-6">
-                <label className="block text-sm font-medium">
-                  Tell me your story! *
-                  <textarea
-                    {...register("story")}
-                    rows={5}
-                    placeholder="What is your story?"
-                    className="mt-2 mr-3 py-1 px-2 block w-full rounded-sm border border-thirdft text-secondaryft focus:text-primaryft focus:outline-none focus:border-action sm:text-sm"
-                  />
-                </label>
-                {errors.story && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.story.message}
-                  </p>
-                )}
-              </div>
-              <div className="pl-6 pr-6 pb-2">
-                <label className="flex items-center text-sm text-secondaryft space-x-2">
-                  <input
-                    type="checkbox"
-                    {...register("terms")}
-                    className="accent-action"
-                  />
-                  <span>
-                    I give consent to be contacted by phone, email, or instagram
-                    *
-                  </span>
-                </label>
-                {errors.terms && (
-                  <p className="text-red-500 text-sm pt-1">
-                    {errors.terms.message}
-                  </p>
-                )}
-              </div>
-              <div className="flex justify-center">
-                <button
-                  type="submit"
-                  className="m-8 inline-block rounded-sm text-lg font-action text-black px-6 py-1 text-center bg-action hover:bg-action-hvr"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
+      <div className="grid grid-col-1 gap-16 lg:grid-cols-2">
+        <div className="flex flex-col p-8 space-y-8 justify-center text-center font-body text-blk w-full max-w-lg">
+          <div className=" p-8 md:pl-10 flex items-center">
+            <video
+              src={reel}
+              // style={{ width: videoWidth }}
+              autoPlay
+              playsInline
+              loop
+              muted
+            />
           </div>
         </div>
-      </RevealOnScroll>
+
+        <div className="bg-contactform border rounded-lg border-transparent md:mr-8 font-body text-blk">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full max-w-md space-y-4 m-auto md:pr-8"
+          >
+            <div className="pl-6 pr-6 pb-2 pt-6">
+              <span>Email address: *</span>
+              <input
+                type="email"
+                {...register("email")}
+                placeholder="me@email.com"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+              {errors.email && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>Full name: *</span>
+              <input
+                type="text"
+                {...register("name")}
+                placeholder="John Doe"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+              {errors.name && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>Phone number: *</span>
+              <input
+                type="text"
+                {...register("phoneNumber")}
+                placeholder="(123) 456-7890"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+              {errors.phoneNumber && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.phoneNumber.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>Wedding Date: *</span>
+              <Controller
+                name="weddingDate"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <div
+                    className={`flex border-b transition-colors duration-300 ${
+                      isActive ? "border-active" : "border-blk"
+                    }`}
+                  >
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="mm/dd/yyyy"
+                      value={weddingDate}
+                      onFocus={() => setIsActive(true)}
+                      onBlur={(_) => {
+                        handleInputBlur();
+                        field.onBlur();
+                      }}
+                      onChange={(e) => {
+                        setWeddingDate(e.target.value);
+                        field.onChange(e.target.value);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          e.target.blur();
+                        }
+                      }}
+                      className="appearance-none cursor-text bg-transparent w-full text-gr mr-3 py-1 px-2 leading-tight focus:outline-none focus:text-blk"
+                    />
+                    <div ref={datePickerRef} className="relative">
+                      <button
+                        type="button"
+                        className="ml-2 px-3 py-1 cursor-pointer text-wht rounded"
+                        onClick={() => {
+                          setIsActive(true);
+                          setShowDatePicker((prev) => !prev);
+                        }}
+                      >
+                        📅
+                      </button>
+                      {showDatePicker && (
+                        <div
+                          style={{ width: 280 }}
+                          className="absolute z-10 ml-5 right-0 top-0 mt-10"
+                        >
+                          <div className="shadow-md rounded-xl">
+                            <DatePicker
+                              onDateSelect={(date) => {
+                                const formatted =
+                                  dayjs(date).format("MM/DD/YYYY");
+                                setWeddingDate(formatted);
+                                field.onChange(formatted);
+                                setShowDatePicker(false);
+                                setIsActive(false);
+                                document.activeElement?.blur();
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              />
+              {errors.weddingDate && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.weddingDate.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>Location: *</span>
+              <input
+                type="text"
+                {...register("location")}
+                placeholder="City and Venue"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+              {errors.location && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.location.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>Instagram Handle:</span>
+              <input
+                type="text"
+                {...register("insta")}
+                placeholder="@glimpseandsmilefilms"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+              {errors.insta && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.insta.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>How did you hear about me? *</span>
+              <div className="flex flex-col space-y-1">
+                {hearAboutOptions.map(({ label, value }) => (
+                  <label key={value}>
+                    <input
+                      type="checkbox"
+                      value={value}
+                      {...register("hearAbout")}
+                      className="mr-2 accent-checkbox-active"
+                    />
+                    {label}
+                  </label>
+                ))}
+                {errors.hearAbout && (
+                  <p className="text-checkbox-error text-sm pt-1">
+                    {errors.hearAbout.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>If a friend or Vendor, tell me who!</span>
+              <input
+                type="text"
+                {...register("referral")}
+                placeholder="E.g. Montage Healdsburg"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <span>What about my work speaks to you the most? *</span>
+              <input
+                type="text"
+                {...register("values")}
+                placeholder="Luxury, emotional storytelling"
+                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+              />
+            </div>
+            <div className="pl-6 pr-6">
+              <label className="block text-sm font-medium">
+                Tell me your story! *
+                <textarea
+                  {...register("story")}
+                  rows={5}
+                  placeholder="What is your story?"
+                  className="mt-2 mr-3 py-1 px-2 block w-full rounded-sm border border-blk text-gr focus:text-blk focus:outline-none focus:border-active sm:text-sm"
+                />
+              </label>
+              {errors.story && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.story.message}
+                </p>
+              )}
+            </div>
+            <div className="pl-6 pr-6 pb-2">
+              <label className="flex items-center text-sm text-secondaryft space-x-2">
+                <input
+                  type="checkbox"
+                  {...register("terms")}
+                  className="accent-checkbox-active"
+                />
+                <span>
+                  I give consent to be contacted by phone, email, or instagram *
+                </span>
+              </label>
+              {errors.terms && (
+                <p className="text-checkbox-error text-sm pt-1">
+                  {errors.terms.message}
+                </p>
+              )}
+            </div>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="m-8 inline-block rounded-sm text-lg font-blk text-blk px-6 py-1 text-center bg-body hover:bg-btn1"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <Modal
         isVisible={showModal}
         bgColor={"bg-green-100"}
@@ -414,7 +395,7 @@ export const Contact = () => {
           setShowModal(false);
         }}
       >
-        <div className="flex flex-col justify-center text-center items-center text-primaryft m-8">
+        <div className="flex flex-col justify-center text-center items-center text-blk font-body m-8">
           <h1 className="text-xl bold pb-2">Thank you for choosing us!</h1>
           <p>We will contact you shortly!</p>
         </div>

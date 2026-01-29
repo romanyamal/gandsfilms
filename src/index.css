@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --font-logo: "Italianno", cursive;
-  --font-action: "Proxima Nova", sans-serif;
-  --font-body: "Proxima Nova", sans-serif;
-  --color-action: #ffc999;
-  --color-action-hvr: #f5ae6e;
-  --color-accent: #0e1721;
-  --color-wht: #f9f9f9;
-  --color-blk: #0a0a0a;
-  --color-primaryft: #0a0a0a;
-  --color-secondaryft: #363836;
-  --color-thirdft: #757876;
-  --color-contactform: #f3f4f6;
+  --font-body: "Josefin Sans", sans-serif;
+  --color-main: #f1ecdb;
+  --color-wht: #ffffff;
+  --color-blk: #000000;
+  --color-btn: #ffffff;
+  --color-btn-hvr: #f0f0f0;
+  --color-btn1: #d2d0b8;
+  --color-btn1-hvr: #f0f0f0;
+  --color-checkbox-active: #d2d0b8;
+  --color-checkbox-error: #eb4f34;
+  --color-active: #03ff1c;
+  --color-checkbox-active: #ee03ff;
+  --color-gr: #363836;
+  --color-menu: #d2d0b8;
 }
 
 html,
@@ -20,7 +22,7 @@ body {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
-  font-family: "Proxima Nova", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -29,7 +31,9 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 .reveal.visible {
   opacity: 1;

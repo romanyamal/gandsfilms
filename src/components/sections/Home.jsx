@@ -26,7 +26,7 @@ export const Home = () => {
       className="flex relative items-center justify-center object-top overflow-hidden xl:h-screen"
     >
       {!videoLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+        <div className="absolute inset-0 flex items-center justify-center bg-gr">
           <img
             src={videoplaceholder}
             alt="Placeholder"
@@ -48,10 +48,10 @@ export const Home = () => {
             muted
           />
         </div>
-        <div className="absolute inset-0 bg-black opacity-35"></div>
-        <div className="w-full absolute flex flex-col items-center text-2xl xs:text-3xl sm:text-4xl md:text-primaryft md:text-5xl lg:text-6xl text-wht top-7/12 left-1/2 -translate-x-1/2 -translate-y-1/2 font-logo md:space-y-4">
+        <div className="absolute inset-0 bg-blk opacity-35"></div>
+        <div className="w-full absolute flex flex-col items-center text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl top-7/12 left-1/2 -translate-x-1/2 -translate-y-1/2 font-logo md:space-y-4">
           <img className="max-w-7/13" src={herotextimg} alt="G and S Logo" />
-          <h1 className="font-action text-white">FILMS</h1>
+          <h1 className="font-body text-wht uppercase">Films</h1>
         </div>
       </div>
     </section>

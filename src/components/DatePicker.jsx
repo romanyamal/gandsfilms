@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import dayjs from "dayjs";
 import { generateDate, months } from "../utils/GenerateDate";
 import cn from "../utils/cn";
@@ -12,7 +12,7 @@ export const DatePicker = ({ onDateSelect }) => {
   // Only re-calculate dates when the month/year changes
   const dates = useMemo(
     () => generateDate(today.month(), today.year()),
-    [today]
+    [today],
   );
 
   return (
@@ -68,7 +68,7 @@ export const DatePicker = ({ onDateSelect }) => {
               className={cn(
                 currentMonth ? "" : "text-gray-800",
                 isToday ? "bg-red-600 text-white" : "",
-                "h-7 w-7 rounded-full hover:bg-white hover:text-black transition-colors cursor-pointer"
+                "h-7 w-7 rounded-full hover:bg-white hover:text-black transition-colors cursor-pointer",
               )}
             >
               {date.date()}

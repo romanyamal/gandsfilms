@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="relative w-full min-h-screen">
+      <div className="relative w-full min-h-screen bg-main">
         <Hero></Hero>
         <main style={{ maxWidth: "1920px" }} className="mx-auto">
           <Portfolio></Portfolio>
