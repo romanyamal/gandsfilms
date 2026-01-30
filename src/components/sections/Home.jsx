@@ -16,10 +16,6 @@ export const Home = () => {
     };
   }, []);
 
-  const handleVideoLoad = () => {
-    setVideoLoaded(true);
-  };
-
   return (
     <section
       id="home"
@@ -37,15 +33,17 @@ export const Home = () => {
       <div>
         <div className="bg-cover bg-no-repeat bg-center">
           <video
-            className={`w-full h-auto ${videoLoaded ? "block" : "hidden"}`}
+            className={`w-full h-auto ${videoLoaded ? "opacity-100" : "opacity-0"}`}
             src={videoBG}
-            onLoadedData={handleVideoLoad}
-            preload="auto"
-            style={{ width: videoWidth }}
+            onLoadedData={() => setVideoLoaded(true)}
             autoPlay
+            muted
             playsInline
             loop
-            muted
+            preload="auto"
+            style={{ width: videoWidth }}
+            // This ensures the attribute is actually on the DOM element for iOS
+            onCanPlayThrough={() => setVideoLoaded(true)}
           />
         </div>
         <div className="absolute inset-0 bg-blk opacity-35"></div>
