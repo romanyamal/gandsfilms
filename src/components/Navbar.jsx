@@ -7,8 +7,8 @@ export const Navbar = () => {
   const navLinks = [
     { title: "Home", anchor: "#home" },
     { title: "My Work", anchor: "#mywork" },
-    { title: "About", anchor: "#about" },
     { title: "Contact", anchor: "#contact" },
+    { title: "About", anchor: "#about" },
   ];
 
   const toggleModal = useCallback(() => {
@@ -19,13 +19,13 @@ export const Navbar = () => {
     <>
       <nav className="absolute top-0 w-full z-40">
         <div className="flex justify-between items-center px-4 h-20">
-          <a href="#home" className="md:max-w-20">
+          <a href="#home" className=" w-15 md:max-w-20">
             <img src={logoimg} alt="G and S Logo" />
           </a>
           <div className="flex items-center space-x-8 md:space-x-10">
             <a
               href="#contact"
-              className="inline-block text-md font-body uppercase text-wht px-4 tracking-[5px] py-2 text-center bg-wht/15 backdrop-blur-[1px] hover:backdrop-blur-[5px] border border-transparent hover:border-wht/30"
+              className="inline-block text-base font-light font-body uppercase text-wht px-2 sm:px-4 tracking-[5px] py-1 sm:py-2 text-center bg-wht/15 backdrop-blur-[1px] hover:backdrop-blur-[5px] border border-transparent hover:border-wht/30"
             >
               Book Now
             </a>
@@ -33,7 +33,7 @@ export const Navbar = () => {
               className={`
                 absolute top-6 right-6 cursor-pointer text-lg z-40 text-wht
                 transition-opacity duration-500 ease-in-out
-                ${showModal ? "opacity-0 pointer-events-none" : "opacity-100"}
+                ${showModal ? "opacity-0 pointer-events-none no-doc-scroll" : "opacity-100"}
               `}
               onClick={toggleModal}
               aria-label="Open menu"
@@ -42,7 +42,6 @@ export const Navbar = () => {
             </button>
           </div>
         </div>
-
         <div className="mx-auto flex justify-center items-center">
           <button
             className={`
@@ -51,7 +50,7 @@ export const Navbar = () => {
                 ${showModal ? "opacity-100" : "opacity-0 pointer-events-none"}
               `}
             onClick={toggleModal}
-            aria-label="Close mobile menu"
+            aria-label="Close menu"
           >
             &#x2715;
           </button>
@@ -81,7 +80,7 @@ export const Navbar = () => {
               ))}
               <button
                 href="#contact"
-                className="min-w-24 my-4 border rounded-sm font-action text-text px-4 py-2 text-center hover:bg-gr transform transition-transform duration-500"
+                className="min-w-24 my-4 border px-4 py-2 text-center text-2xl font-light hover:bg-gr transform transition-transform duration-500"
                 onClick={toggleModal}
               >
                 <a href="#contact">Book Now</a>

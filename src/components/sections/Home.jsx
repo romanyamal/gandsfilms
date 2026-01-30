@@ -23,7 +23,7 @@ export const Home = () => {
   return (
     <section
       id="home"
-      className="flex relative items-center justify-center object-top overflow-hidden xl:h-screen"
+      className="flex relative items-center justify-center object-top overflow-hidden 2xl:h-screen"
     >
       {!videoLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-gr">
@@ -49,9 +49,11 @@ export const Home = () => {
           />
         </div>
         <div className="absolute inset-0 bg-blk opacity-35"></div>
-        <div className="w-full absolute flex flex-col items-center text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl top-7/12 left-1/2 -translate-x-1/2 -translate-y-1/2 font-logo md:space-y-4">
+        <div className="w-full absolute flex flex-col items-center text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl top-7/12 left-1/2 -translate-x-1/2 -translate-y-1/2 md:space-y-4">
           <img className="max-w-7/13" src={herotextimg} alt="G and S Logo" />
-          <h1 className="font-body text-wht uppercase">Films</h1>
+          <h1 className="font-body text-wht uppercase font-extralight tracking-[6px] md:tracking-[15px]">
+            Films
+          </h1>
         </div>
       </div>
     </section>

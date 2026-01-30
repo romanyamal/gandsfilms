@@ -58,17 +58,16 @@ const schema = yup.object({
       },
     ),
   location: yup.string().required("Please enter venue location"),
-  insta: yup
-    .string()
-    .notRequired()
-    .matches(
-      /^@([A-Za-z0-9._]{1,30})$/,
-      "Invalid Instagram handle (e.g. @username)",
-    ),
+  insta: yup.string(),
+  // .notRequired()
+  // .matches(
+  //   /^@([A-Za-z0-9._]{1,30})$/,
+  //   "Invalid Instagram handle (e.g. @username)",
+  // ),
   hearAbout: yup.array().min(1, "You must select at least one"),
   referral: yup.string(),
   values: yup.string(),
-  story: yup.string().required("This is a required field"),
+  needtoknow: yup.string(),
   terms: yup.boolean().oneOf([true], "Must Accept Terms and Conditions"),
 });
 
@@ -113,7 +112,7 @@ export const Contact = () => {
       hearAbout: [],
       referral: "",
       values: "",
-      story: "",
+      needtoknow: "",
       terms: false,
     },
   });
@@ -138,11 +137,11 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="min--h-2/3 flex items-center justify-center w-full py-20"
+      className=" flex items-center justify-center w-full pt-20"
     >
-      <div className="grid grid-col-1 gap-16 lg:grid-cols-2">
-        <div className="flex flex-col p-8 space-y-8 justify-center text-center font-body text-blk w-full max-w-lg">
-          <div className=" p-8 md:pl-10 flex items-center">
+      <div className="grid grid-col-1 gap-5 2xl:gap-10 md:grid-cols-2 lg:grid-cols-[30%_70%] overflow-hidden">
+        <div className="flex justify-center items-center">
+          <div className="w-full px-8 pb-4 md:pl-10 lg:pb-10 2xl:pl-0">
             <video
               src={reel}
               // style={{ width: videoWidth }}
@@ -154,55 +153,55 @@ export const Contact = () => {
           </div>
         </div>
 
-        <div className="bg-contactform border rounded-lg border-transparent md:mr-8 font-body text-blk">
+        <div className="font-normal text-sm md:text-base text-blk">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-md space-y-4 m-auto md:pr-8"
+            className="max-w-4xl space-y-1 m-auto px-4 md:pr-8 lg:pr-12"
           >
             <div className="pl-6 pr-6 pb-2 pt-6">
-              <span>Email address: *</span>
+              <span className="uppercase">Email address: *</span>
               <input
                 type="email"
                 {...register("email")}
                 placeholder="me@email.com"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
               {errors.email && (
-                <p className="text-checkbox-error text-sm pt-1">
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.email.message}
                 </p>
               )}
             </div>
             <div className="pl-6 pr-6 pb-2">
-              <span>Full name: *</span>
+              <span className="uppercase">Full name: *</span>
               <input
                 type="text"
                 {...register("name")}
                 placeholder="John Doe"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
               {errors.name && (
-                <p className="text-checkbox-error text-sm pt-1">
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.name.message}
                 </p>
               )}
             </div>
             <div className="pl-6 pr-6 pb-2">
-              <span>Phone number: *</span>
+              <span className="uppercase">Phone number: *</span>
               <input
                 type="text"
                 {...register("phoneNumber")}
                 placeholder="(123) 456-7890"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
               {errors.phoneNumber && (
-                <p className="text-checkbox-error text-sm pt-1">
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.phoneNumber.message}
                 </p>
               )}
             </div>
             <div className="pl-6 pr-6 pb-2">
-              <span>Wedding Date: *</span>
+              <span className="uppercase">Wedding Date: *</span>
               <Controller
                 name="weddingDate"
                 control={control}
@@ -271,55 +270,94 @@ export const Contact = () => {
                 )}
               />
               {errors.weddingDate && (
-                <p className="text-checkbox-error text-sm pt-1">
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.weddingDate.message}
                 </p>
               )}
             </div>
             <div className="pl-6 pr-6 pb-2">
-              <span>Location: *</span>
+              <span className="uppercase">Location: *</span>
               <input
                 type="text"
                 {...register("location")}
                 placeholder="City and Venue"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
               {errors.location && (
-                <p className="text-checkbox-error text-sm pt-1">
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.location.message}
                 </p>
               )}
             </div>
             <div className="pl-6 pr-6 pb-2">
-              <span>Instagram Handle:</span>
+              <span className="uppercase">Instagram Handle:</span>
               <input
                 type="text"
                 {...register("insta")}
                 placeholder="@glimpseandsmilefilms"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
-              {errors.insta && (
-                <p className="text-checkbox-error text-sm pt-1">
+              {/* {errors.insta && (
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.insta.message}
                 </p>
-              )}
+              )} */}
             </div>
-            <div className="pl-6 pr-6 pb-2">
-              <span>How did you hear about me? *</span>
-              <div className="flex flex-col space-y-1">
+            {/* <div className="pl-6 pr-6 pb-2">
+              <span className="uppercase">How did you hear about me? *</span>
+              <div className="flex flex-col space-y-1 pt-1">
                 {hearAboutOptions.map(({ label, value }) => (
                   <label key={value}>
                     <input
                       type="checkbox"
                       value={value}
                       {...register("hearAbout")}
-                      className="mr-2 accent-checkbox-active"
+                      className="mr-2 appearance-none w-3 h-3 border-1 checked:bg-checkbox-active"
                     />
                     {label}
                   </label>
                 ))}
                 {errors.hearAbout && (
-                  <p className="text-checkbox-error text-sm pt-1">
+                  <p className="text-checkbox-error text-xs pt-1.5">
+                    {errors.hearAbout.message}
+                  </p>
+                )}
+              </div>
+            </div> */}
+            <div className="pl-6 pr-6 pb-2">
+              <span
+                className="uppercase text-sm font-semibold"
+                id="hear-about-label"
+              >
+                How did you hear about me? *
+              </span>
+              <div
+                className="flex flex-col space-y-2 pt-2"
+                role="group"
+                aria-labelledby="hear-about-label"
+              >
+                {hearAboutOptions.map(({ label, value }) => (
+                  <label
+                    key={value}
+                    className="flex items-center justify-left font-normal cursor-pointer group relative"
+                  >
+                    <input
+                      type="checkbox"
+                      value={value}
+                      {...register("hearAbout")}
+                      className="peer sr-only"
+                    />
+                    <div
+                      className="w-3.5 h-3.5 border-2 border-blk flex items-center justify-center 
+                        transition-all duration-200 
+                        peer-checked:bg-checkbox-active 
+                        peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2"
+                    ></div>
+                    <span className="ml-3 text-blk select-none">{label}</span>
+                  </label>
+                ))}
+                {errors.hearAbout && (
+                  <p className="text-checkbox-error text-xs pt-1.5">
                     {errors.hearAbout.message}
                   </p>
                 )}
@@ -331,7 +369,7 @@ export const Contact = () => {
                 type="text"
                 {...register("referral")}
                 placeholder="E.g. Montage Healdsburg"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
             </div>
             <div className="pl-6 pr-6 pb-2">
@@ -340,27 +378,21 @@ export const Contact = () => {
                 type="text"
                 {...register("values")}
                 placeholder="Luxury, emotional storytelling"
-                className="appearance-none cursor-text bg-transparent w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-active"
+                className="cursor-text w-full border-b border-blk text-blk mr-3 py-1 px-2 leading-1 focus:outline-none focus:border-active"
               />
             </div>
             <div className="pl-6 pr-6">
-              <label className="block text-sm font-medium">
-                Tell me your story! *
+              <label className="block text-sm md:text-base font-medium">
+                Anything else you would like me to know before we chat?
                 <textarea
-                  {...register("story")}
-                  rows={5}
-                  placeholder="What is your story?"
-                  className="mt-2 mr-3 py-1 px-2 block w-full rounded-sm border border-blk text-gr focus:text-blk focus:outline-none focus:border-active sm:text-sm"
+                  {...register("needtoknow")}
+                  rows={2}
+                  className="mt-2 mr-3 py-1 px-2 block w-full border border-blk text-gr focus:text-blk focus:outline-none focus:border-active sm:text-sm"
                 />
               </label>
-              {errors.story && (
-                <p className="text-checkbox-error text-sm pt-1">
-                  {errors.story.message}
-                </p>
-              )}
             </div>
-            <div className="pl-6 pr-6 pb-2">
-              <label className="flex items-center text-sm text-secondaryft space-x-2">
+            {/* <div className="pl-6 pr-6 pb-2">
+              <label className="flex items-center text-xs space-x-2">
                 <input
                   type="checkbox"
                   {...register("terms")}
@@ -371,11 +403,35 @@ export const Contact = () => {
                 </span>
               </label>
               {errors.terms && (
-                <p className="text-checkbox-error text-sm pt-1">
+                <p className="text-checkbox-error text-xs pt-1.5">
+                  {errors.terms.message}
+                </p>
+              )}
+            </div> */}
+            <div className="pl-6 pr-6 pb-2">
+              <label className="flex items-center justify-left font-light text-sm cursor-pointer group relative">
+                <input
+                  type="checkbox"
+                  {...register("terms")}
+                  className="peer sr-only"
+                />
+                <div
+                  className="w-3 h-3 border-1 border-blk flex-none 
+                        transition-all duration-200 
+                        peer-checked:bg-checkbox-active 
+                        peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2"
+                ></div>
+                <span className="ml-3 text-blk select-none">
+                  I give consent to be contacted by phone, email, or instagram *
+                </span>
+              </label>
+              {errors.terms && (
+                <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.terms.message}
                 </p>
               )}
             </div>
+
             <div className="flex justify-center">
               <button
                 type="submit"
