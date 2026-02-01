@@ -9,6 +9,7 @@ import isEmailValidator from "validator/lib/isEmail";
 
 import { DatePicker } from "../DatePicker";
 import { Modal } from "../Modal";
+import { Checkbox } from "../Checkbox";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useClickOutside } from "../../utils/useClickOutside";
 dayjs.extend(customParseFormat);
@@ -303,27 +304,6 @@ export const Contact = () => {
                 </p>
               )} */}
             </div>
-            {/* <div className="pl-6 pr-6 pb-2">
-              <span className="uppercase">How did you hear about me? *</span>
-              <div className="flex flex-col space-y-1 pt-1">
-                {hearAboutOptions.map(({ label, value }) => (
-                  <label key={value}>
-                    <input
-                      type="checkbox"
-                      value={value}
-                      {...register("hearAbout")}
-                      className="mr-2 appearance-none w-3 h-3 border-1 checked:bg-checkbox-active"
-                    />
-                    {label}
-                  </label>
-                ))}
-                {errors.hearAbout && (
-                  <p className="text-checkbox-error text-xs pt-1.5">
-                    {errors.hearAbout.message}
-                  </p>
-                )}
-              </div>
-            </div> */}
             <div className="pl-6 pr-6 pb-2">
               <span
                 className="uppercase text-sm font-semibold"
@@ -337,24 +317,15 @@ export const Contact = () => {
                 aria-labelledby="hear-about-label"
               >
                 {hearAboutOptions.map(({ label, value }) => (
-                  <label
+                  <Checkbox
                     key={value}
-                    className="flex items-center justify-left font-normal cursor-pointer group relative"
-                  >
-                    <input
-                      type="checkbox"
-                      value={value}
-                      {...register("hearAbout")}
-                      className="peer sr-only"
-                    />
-                    <div
-                      className="w-3.5 h-3.5 border-2 border-blk flex items-center justify-center 
-                        transition-all duration-200 
-                        peer-checked:bg-checkbox-active 
-                        peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2"
-                    ></div>
-                    <span className="ml-3 text-blk select-none">{label}</span>
-                  </label>
+                    name="hearAbout"
+                    value={value}
+                    label={label}
+                    register={register}
+                    fontWeight={"font-normal"}
+                    size="w-5 h-5"
+                  ></Checkbox>
                 ))}
                 {errors.hearAbout && (
                   <p className="text-checkbox-error text-xs pt-1.5">
@@ -391,40 +362,14 @@ export const Contact = () => {
                 />
               </label>
             </div>
-            {/* <div className="pl-6 pr-6 pb-2">
-              <label className="flex items-center text-xs space-x-2">
-                <input
-                  type="checkbox"
-                  {...register("terms")}
-                  className="accent-checkbox-active"
-                />
-                <span>
-                  I give consent to be contacted by phone, email, or instagram *
-                </span>
-              </label>
-              {errors.terms && (
-                <p className="text-checkbox-error text-xs pt-1.5">
-                  {errors.terms.message}
-                </p>
-              )}
-            </div> */}
             <div className="pl-6 pr-6 pb-2">
-              <label className="flex items-center justify-left font-light text-sm cursor-pointer group relative">
-                <input
-                  type="checkbox"
-                  {...register("terms")}
-                  className="peer sr-only"
-                />
-                <div
-                  className="w-3 h-3 border-1 border-blk flex-none 
-                        transition-all duration-200 
-                        peer-checked:bg-checkbox-active 
-                        peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2"
-                ></div>
-                <span className="ml-3 text-blk select-none">
-                  I give consent to be contacted by phone, email, or instagram *
-                </span>
-              </label>
+              <Checkbox
+                name="terms"
+                label="I give consent to be contacted by phone, email, or instagram *"
+                register={register}
+                fontWeight={"font-light"}
+                size="w-4 h-4"
+              ></Checkbox>
               {errors.terms && (
                 <p className="text-checkbox-error text-xs pt-1.5">
                   {errors.terms.message}

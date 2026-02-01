@@ -22,11 +22,11 @@ export const Home = () => {
       className="flex relative items-center justify-center object-top overflow-hidden 2xl:h-screen"
     >
       {!videoLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gr">
+        <div className="absolute inset-0 flex items-center justify-center bg-gr 2xl:h-screen">
           <img
             src={videoplaceholder}
             alt="Placeholder"
-            className="w-full h-full object-cover opacity-70"
+            className="w-full object-cover opacity-70"
           />
         </div>
       )}
@@ -42,7 +42,6 @@ export const Home = () => {
             loop
             preload="auto"
             style={{ width: videoWidth }}
-            // This ensures the attribute is actually on the DOM element for iOS
             onCanPlayThrough={() => setVideoLoaded(true)}
           />
         </div>
