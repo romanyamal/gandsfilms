@@ -5,7 +5,7 @@ export const Portfolio = () => {
   return (
     <section
       id="mywork"
-      className="relative w-full p-6 pt-15 xs:p-10 sm:p-15 md:pt-40 md:pb-20 flex justify-center"
+      className="relative w-full pt-30 pb-20 px-6 sm:px-0 flex flex-col justify-center items-center"
     >
       <div className="flex flex-col items-center justify-center max-w-4/5 gap-15 sm:gap-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-[45%_55%]">
@@ -22,7 +22,7 @@ export const Portfolio = () => {
             </a>
           </div>
           <div className="text-blk flex flex-col justify-center">
-            <h2 className="font-light text-base text-center pt-10 pb-4">
+            <h2 className="font-light text-base text-center pt-10 lg:pt-0 pb-4">
               BRETT + SVETLANA
             </h2>
             <p className="font-extralight px-4 text-sm text-center">
@@ -51,7 +51,7 @@ export const Portfolio = () => {
           </div>
 
           <div className="order-2 lg:order-1 text-blk flex flex-col justify-center">
-            <h2 className="font-light text-base text-center pt-10 pb-4">
+            <h2 className="font-light text-base text-center pt-10 lg:pt-0 pb-4">
               ANDREI + ANGELINA
             </h2>
             <p className="font-extralight px-4 text-sm text-center">
@@ -65,6 +65,17 @@ export const Portfolio = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-0 right-0 w-1/2 md:w-2/7 border-b border-blk inline-block group">
+        <span className="absolute bottom-0 right-0 w-0 h-full bg-btn1 group-hover:w-full transition-all duration-500 ease-in-out z-0"></span>
+        <a
+          className="relative text-blk font-light font-body text-xl tracking-[6px] uppercase text-left z-10 px-2"
+          href="https://www.instagram.com/glimpseandsmilefilms/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          More Work
+        </a>
       </div>
     </section>
   );

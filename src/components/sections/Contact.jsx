@@ -138,8 +138,14 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className=" flex items-center justify-center w-full pt-20"
+      className="relative flex items-center justify-center w-full pt-30 pb-10"
     >
+      <div className="absolute top-10 md:top-16 left-0 w-1/2 md:w-3/5 border-b-2 border-blk text-right">
+        <span className=" text-blk font-body font-semibold text-xl uppercase tracking-[6px] px-2">
+          Connect with me
+        </span>
+      </div>
+      <div className="absolute bottom-0 sm:bottom-5 right-0 w-6/7 md:w-3/5 border-b-2 border-blk"></div>
       <div className="grid grid-col-1 gap-5 2xl:gap-10 md:grid-cols-2 lg:grid-cols-[30%_70%] overflow-hidden">
         <div className="flex justify-center items-center">
           <div className="w-full px-8 pb-4 md:pl-10 lg:pb-10 2xl:pl-0">
@@ -154,7 +160,7 @@ export const Contact = () => {
           </div>
         </div>
 
-        <div className="font-normal text-sm md:text-base text-blk">
+        <div className="font-normal text-sm md:text-base text-blk pb-15">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-4xl space-y-1 m-auto px-4 md:pr-8 lg:pr-12"
@@ -376,11 +382,11 @@ export const Contact = () => {
                 </p>
               )}
             </div>
-
-            <div className="flex justify-center">
+            <div className="absolute bottom-15 right-0 w-1/2 md:w-2/7 border-b border-blk group">
+              <span className="absolute bottom-0 right-0 w-0 h-full bg-btn1 group-hover:w-full transition-all duration-500 ease-in-out z-0"></span>
               <button
+                className="relative text-blk font-light font-body text-xl tracking-[6px] uppercase text-left z-10 px-2 cursor-pointer"
                 type="submit"
-                className="m-8 inline-block rounded-sm text-lg font-blk text-blk px-6 py-1 text-center bg-body hover:bg-btn1"
               >
                 Send
               </button>
